@@ -26,22 +26,26 @@ readline.on("close", () => {
 });
 
 const solution = () => {
-  for (let i = 0; i < questions.length; i++) {
+  let nextK = new Array(n).fill(n);
+  let lastK = n;
+  
+  for(let i = n-1; i >= 0; i--) {
+    if(students[i] === k) {
+      lastK = i;
+    }
+    nextK[i] = lastK;
+  }
+  
+  for(let i = 0; i < q; i++) {
+    let currentQ = questions[i];
     let cnt = 0;
-    let q = questions[i];
-
-    for (let l = 0; l < q; l++) {
-      for (let j = l; j < q; j++) {
-        let flag = 1;
-        for (let m = l; m <= j; m++) {
-          if (students[m] === k) {
-            flag = 0;
-            break;
-          }
-        }
-        if (flag === 1) {
-          cnt++;
-        }
+    
+    for(let start = 0; start < currentQ; start++) {
+     
+      if(nextK[start] >= currentQ) {
+        cnt += currentQ - start;
+      } else {
+        cnt += nextK[start] - start;
       }
     }
     console.log(cnt);
