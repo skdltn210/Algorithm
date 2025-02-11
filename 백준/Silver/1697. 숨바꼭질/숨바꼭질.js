@@ -4,11 +4,10 @@ const readline = require("readline").createInterface({
 });
 
 let n, k;
-let visited = Array(100001).fill(0);
 
 readline
   .on("line", (line) => {
-    [n, k] = line.split(" ").map((el) => parseInt(el));
+    [n, k] = line.split(" ").map(Number);
     readline.close();
   })
   .on("close", () => {
@@ -16,29 +15,38 @@ readline
     process.exit();
   });
 
-const bfs = (start) => {
-  const queue = [[start, 0]];
+const solution = () => {
+  let visited = Array(100001).fill(false);
 
-  while (queue.length > 0) {
-    const [current, count] = queue.shift();
-
-    if (current === k) {
-      console.log(count);
-      return;
-    }
-
-    const nextPositions = [current + 1, current - 1, current * 2];
-
-    for (const next of nextPositions) {
-      if (next >= 0 && next < 100001 && !visited[next]) {
-        visited[next] = 1;
-        queue.push([next, count + 1]);
+  const bfs = () => {
+    let queue = [];
+    let cnt = 0;
+    queue.push(n);
+    visited[n] = true;
+    while (queue.length > 0) {
+      if (queue.includes(k)) {
+        return cnt;
+      }
+      cnt++;
+      let len = queue.length;
+      for (let i = 0; i < len; i++) {
+        let x = queue.shift();
+        if (!visited[x + 1] && x + 1 <= 100000 && x + 1 >= 0) {
+          queue.push(x + 1);
+          visited[x + 1] = true;
+        }
+        if (!visited[x - 1] && x - 1 <= 100000 && x - 1 >= 0) {
+          queue.push(x - 1);
+          visited[x - 1] = true;
+        }
+        if (!visited[x * 2] && x * 2 <= 100000 && x * 2 >= 0) {
+          queue.push(x * 2);
+          visited[x * 2] = true;
+        }
       }
     }
-  }
+  };
+
+  console.log(bfs());
 };
 
-const solution = () => {
-  visited[n] = 1;
-  bfs(n);
-};
