@@ -12,6 +12,7 @@ readline
       [n, s] = line.split(" ").map(Number);
     } else {
       arr = line.split(" ").map(Number);
+      readline.close();
     }
   })
   .on("close", () => {
@@ -40,3 +41,4 @@ const solution = () => {
 
   console.log(cnt);
 };
+
