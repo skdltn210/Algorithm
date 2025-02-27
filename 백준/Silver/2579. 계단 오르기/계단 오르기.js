@@ -5,6 +5,7 @@ const readline = require("readline").createInterface({
 
 let n;
 let arr = [];
+let tot = 0;
 
 readline
   .on("line", (line) => {
@@ -21,22 +22,16 @@ readline
   });
 
 const solution = () => {
-  if (n === 1) {
-    console.log(arr[0]);
+  for (let i = 0; i < n; i++) {
+    tot += arr[i];
+  }
+  if (n <= 2) {
+    console.log(tot);
     return;
   }
-
-  if (n === 2) {
-    console.log(arr[0] + arr[1]);
-    return;
+  dp = [0, arr[0], arr[1], arr[2]];
+  for (let i = 4; i <= n - 1; i++) {
+    dp.push(Math.min(dp[i - 2], dp[i - 3]) + arr[i - 1]);
   }
-  let dp = Array.from({ length: n }, () => Array(2).fill(0));
-  dp[0][0] = arr[0];
-  dp[1][0] = arr[1];
-  dp[1][1] = arr[0] + arr[1];
-  for (let i = 2; i < n; i++) {
-    dp[i][0] = Math.max(dp[i - 2][0], dp[i - 2][1]) + arr[i];
-    dp[i][1] = dp[i - 1][0] + arr[i];
-  }
-  console.log(Math.max(dp[n - 1][0], dp[n - 1][1]));
+  console.log(tot - Math.min(dp[n - 1], dp[n - 2]));
 };
