@@ -1,27 +1,32 @@
 function solution(genres, plays) {
-    const songs = []
-    const map = new Map()
+    const totalPlay = new Map()
+    const songsByGenre = new Map()
     for(let i=0;i<genres.length;i++){
-        songs.push([genres[i],plays[i],i])
-    }
-    for(let song of songs){
-        if(map.has(song[0])) map.set(song[0],map.get(song[0])+song[1])
-        else map.set(song[0],song[1])
-    }
-    const genresWithPlay = [...map].sort((a,b) => (b[1]-a[1]))
-    const ans = []
-    songs.sort((a,b)=>(b[1]-a[1]))
-    console.log(songs)
-    console.log(genresWithPlay)
-    for(let i=0;i<genresWithPlay.length;i++){
-        for(let j=0;j<2;j++){
-            for(let k=0;k<songs.length;k++){
-                if(genresWithPlay[i][0] === songs[k][0] && !ans.includes(songs[k][2])) {
-                    ans.push(songs[k][2])
-                    break
-                }
-            }
+        if(totalPlay.has(genres[i])) {
+            totalPlay.set(genres[i],totalPlay.get(genres[i])+plays[i])
+            songsByGenre.get(genres[i]).push({id:i, play:plays[i]})
+        }
+        else {
+            totalPlay.set(genres[i],plays[i])
+            songsByGenre.set(genres[i],[{id:i, play:plays[i]}])
         }
     }
-    return ans
+    const totPlay = [...totalPlay].sort((a,b)=>b[1]-a[1])
+    for(let genre of songsByGenre.keys()){
+        songsByGenre.get(genre).sort((a,b)=>{
+            if (b.play !== a.play) {
+                return b.play - a.play; 
+            }
+            return a.id - b.id;
+        })
+    }
+    const ans = []
+    for (const [genre] of totPlay) {  
+        const songs = songsByGenre.get(genre);
+        for (let i = 0; i < Math.min(2, songs.length); i++) {
+            ans.push(songs[i].id);
+        }
+    }
+    
+    return ans;
 }
