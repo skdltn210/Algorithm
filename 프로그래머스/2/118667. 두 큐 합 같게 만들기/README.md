@@ -1,10 +1,10 @@
 # [level 2] 두 큐 합 같게 만들기 - 118667 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118667?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118667?language=javascript) 
 
 ### 성능 요약
 
-메모리: 37.6 MB, 시간: 141.83 ms
+메모리: 61.5 MB, 시간: 33.65 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 03월 17일 11:03:26
+2025년 03월 17일 11:09:37
 
 ### 문제 설명
 
