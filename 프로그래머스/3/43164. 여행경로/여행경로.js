@@ -24,4 +24,5 @@ function solution(tickets) {
     }
     arr.sort()
     return arr[0].split(" ")
+    
 }
