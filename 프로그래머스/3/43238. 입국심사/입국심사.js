@@ -1,26 +1,22 @@
 function solution(n, times) {
-    const isAvailable = (num) => {
-        let sum=0
+    times.sort((a,b)=>a-b)
+    const isAvailable = (mid) => {
+        let cnt=0
         for(let time of times){
-            sum+=Math.floor(num/time)
+            cnt+=Math.floor(mid/time)
         }
-        if(sum>=n) return true
-        return false
+        if(cnt>=n) return true
+        else return false
     }
-    let max=0
-    for(let time of times){
-        max=Math.max(max,time)
-    }
-    max=max*n
-    left=0
-    right=max
-    while(left<right){
-        let mid = Math.floor((left+right)/2)
-        if(isAvailable(mid)) {
-            right=mid
-        } else {
+    let left=0
+    let right=times[times.length-1]*n
+    while(left<=right){
+        let mid=Math.floor((left+right)/2)
+        if(isAvailable(mid)){
+            right=mid-1
+        } else{
             left=mid+1
         }
     }
-    return right
+    return left
 }
