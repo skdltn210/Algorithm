@@ -1,7 +1,7 @@
 class Solution:
     def reverseVowels(self, s: str) -> str:
         arr=list(s)
-        vowels=['a','e','i','o','u','A','E','I','O','U']
+        vowels=set('aeiouAEIOU')
         v=[]
         for i in range(len(s)):
             if arr[i] in vowels: v.append(s[i])
