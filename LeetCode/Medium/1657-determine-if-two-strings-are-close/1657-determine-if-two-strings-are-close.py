@@ -1,4 +1,4 @@
-import collections from Counter
+from collections import Counter
 
 class Solution:
     def closeStrings(self, word1: str, word2: str) -> bool:
