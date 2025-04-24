@@ -2,17 +2,19 @@
  * @param {number[]} nums
  * @return {number}
  */
-var findPeakElement = function(nums) {
-    let arr=[]
-    for(let i=0;i<nums.length;i++){
-        arr.push([i,nums[i]])
+function findPeakElement(nums) {
+    let left = 0;
+    let right = nums.length - 1;
+    
+    while (left < right) {
+        const mid = Math.floor((left+right)/2);
+        if (nums[mid] < nums[mid + 1]) {
+            left = mid + 1;
+        } 
+        else {
+            right = mid;
+        }
     }
-    arr.sort((a,b)=>b[1]-a[1])
-    return arr[0][0]
-    // let left=0
-    // let right=arr.length-1
-
-    // while(left<right){
-    //     let mid=Math.floor((left+right)/2)
-    // }
-};
+    
+    return left;
+}
